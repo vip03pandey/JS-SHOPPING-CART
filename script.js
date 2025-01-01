@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         {id:2,name:"Product2",Price:22.99},
         {id:3,name:"Product3",Price:18.99}
     ]
-    let cart=[];
+    let cart=JSON.parse(localStorage.getItem('cart')) ||[];
     const productList=document.getElementById("products-List")
     const cartItems=document.getElementById("cart-items")
     const emptyCartMessage=document.getElementById("empty-cart")
@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     function addToCart(product){
         cart.push(product);
         renderCart();
+        saveTask();
     }
     function renderCart(){
         cartItems.innerText='';
@@ -70,6 +71,10 @@ document.addEventListener('DOMContentLoaded',()=>{
     function removeFromCart(removeProduct) {
         cart = cart.filter(p => p.id !== removeProduct.id);
         renderCart();
+        saveTask();
+    }
+    function saveTask(){
+        localStorage.setItem('cart', JSON.stringify(cart));
     }
     checkOut.addEventListener('click',()=>{
         cart.length=0;
