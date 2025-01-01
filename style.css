@@ -54,10 +54,13 @@ h2{
 .hidden{
     display: none;
 }
-#cart-items{
-    margin-bottom: 15px;
-    font-size: medium;
-}
+#cart-items {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    justify-content: space-between;
+  }
 #cart-total{
     text-align: right;
 }

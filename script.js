@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         {id:2,name:"Product2",Price:22.99},
         {id:3,name:"Product3",Price:18.99}
     ]
-    const cart=[];
+    let cart=[];
     const productList=document.getElementById("products-List")
     const cartItems=document.getElementById("cart-items")
     const emptyCartMessage=document.getElementById("empty-cart")
@@ -42,6 +42,9 @@ document.addEventListener('DOMContentLoaded',()=>{
                 const cartItem=document.createElement('div');
                 cartItem.innerHTML=`
                  ${item.name} - ${item.Price}
+                  <button del-id="${item.id}" style=" background-color: #6200ea;
+                  border: none;padding: 5px 5px; color: #fff; border-radius: 5px; cursor: pointer;">
+                  Delete </button >
                 `
                 cartItems.appendChild(cartItem);
                 totalPriceDisplay.textContent=`${totalPrice.toFixed(2)}`
@@ -52,6 +55,21 @@ document.addEventListener('DOMContentLoaded',()=>{
             totalPriceDisplay.textContent=`0.00`
 
         }
+    }
+    cartItems.addEventListener('click', (e) => {
+        if (e.target.tagName === "BUTTON") {
+            const delId = parseInt(e.target.getAttribute("del-id"));
+            const removeProduct = products.find(p => p.id === delId);
+            
+            if (removeProduct) {
+                removeFromCart(removeProduct);
+            }
+        }
+    });
+    
+    function removeFromCart(removeProduct) {
+        cart = cart.filter(p => p.id !== removeProduct.id);
+        renderCart();
     }
     checkOut.addEventListener('click',()=>{
         cart.length=0;
